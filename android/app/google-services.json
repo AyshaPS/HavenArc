@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "869108209755",
+    "project_id": "havenarc-40873",
+    "storage_bucket": "havenarc-40873.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869108209755:android:20a156cc55faefd5e7877e",
+        "android_client_info": {
+          "package_name": "com.example.havenarc_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869108209755-868jpcrphom57bnq9vn2njag9g8jdtuq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.havenarc_app",
+            "certificate_hash": "b3ba86dbd9fd62c91a6629316dc303a9aafcfe1e"
+          }
+        },
+        {
+          "client_id": "869108209755-li5bc7ljg9am8253gihjjm24ku8otlgc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCe_De-vHATT6SqefErFd0jb30cAj2HyHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "869108209755-li5bc7ljg9am8253gihjjm24ku8otlgc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "869108209755-ck89as4ni1fib9v89gdh3fen71d2t4c0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.havenarcApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
