@@ -41,7 +41,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDcmIPafizu26DLL40pozvPLDPfmEMMq1g',
+    apiKey: 'AIzaSyCe_De-vHATT6SqefErFd0jb30cAj2HyHc',
     appId: '1:869108209755:web:2290a5aa9047afc1e7877e',
     messagingSenderId: '869108209755',
     projectId: 'havenarc-40873',
@@ -64,8 +64,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '869108209755',
     projectId: 'havenarc-40873',
     storageBucket: 'havenarc-40873.firebasestorage.app',
-    androidClientId: '869108209755-868jpcrphom57bnq9vn2njag9g8jdtuq.apps.googleusercontent.com',
-    iosClientId: '869108209755-ck89as4ni1fib9v89gdh3fen71d2t4c0.apps.googleusercontent.com',
+    androidClientId:
+        '869108209755-868jpcrphom57bnq9vn2njag9g8jdtuq.apps.googleusercontent.com',
+    iosClientId:
+        '869108209755-ck89as4ni1fib9v89gdh3fen71d2t4c0.apps.googleusercontent.com',
     iosBundleId: 'com.example.havenarcApp',
   );
 
@@ -75,8 +77,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '869108209755',
     projectId: 'havenarc-40873',
     storageBucket: 'havenarc-40873.firebasestorage.app',
-    androidClientId: '869108209755-868jpcrphom57bnq9vn2njag9g8jdtuq.apps.googleusercontent.com',
-    iosClientId: '869108209755-ck89as4ni1fib9v89gdh3fen71d2t4c0.apps.googleusercontent.com',
+    androidClientId:
+        '869108209755-868jpcrphom57bnq9vn2njag9g8jdtuq.apps.googleusercontent.com',
+    iosClientId:
+        '869108209755-ck89as4ni1fib9v89gdh3fen71d2t4c0.apps.googleusercontent.com',
     iosBundleId: 'com.example.havenarcApp',
   );
 
@@ -89,5 +93,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'havenarc-40873.firebasestorage.app',
     measurementId: 'G-X1HR024ZWE',
   );
-
 }

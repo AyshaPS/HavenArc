@@ -4,8 +4,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 class MobileScannerWidget extends StatelessWidget {
   final Function(String) onScanned;
 
-  const MobileScannerWidget({Key? key, required this.onScanned})
-      : super(key: key);
+  const MobileScannerWidget({super.key, required this.onScanned});
 
   @override
   Widget build(BuildContext context) {

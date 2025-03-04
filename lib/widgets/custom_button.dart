@@ -9,14 +9,14 @@ class CustomButton extends StatelessWidget {
   final double padding;
 
   const CustomButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.onPressed,
     this.color = Colors.blue,
     this.textColor = Colors.white,
     this.borderRadius = 8.0,
     this.padding = 16.0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

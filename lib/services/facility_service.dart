@@ -4,38 +4,59 @@ import '../models/facility_model.dart';
 
 class FacilityService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // Booking a facility
-  Future<void> bookFacility(Facility facility) async {
+  /// ✅ Fetch user's facility bookings
+  Future<List<FacilityModel>> getUserBookings() async {
     try {
-      await _firestore.collection('facility_bookings').add(facility.toMap());
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) throw Exception("User not logged in");
+
+      var querySnapshot = await _firestore
+          .collection("facilities")
+          .where("bookedBy", isEqualTo: user.uid)
+          .get();
+
+      return querySnapshot.docs.map((doc) {
+        var data = doc.data(); // ✅ Ensure correct casting
+        return FacilityModel.fromMap(data, doc.id); // ✅ Correct usage
+      }).toList();
     } catch (e) {
-      throw Exception('Failed to book facility: $e');
+      print("❌ Error fetching user bookings: $e");
+      return [];
     }
   }
 
-  // Fetch user bookings
-  Stream<List<Facility>> getUserBookings() {
-    final User? user = _auth.currentUser;
-    if (user == null) {
-      throw Exception('No user logged in');
+  /// ✅ Book a facility
+  Future<void> bookFacility(FacilityModel facility) async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) throw Exception("User not logged in");
+
+      await _firestore.collection("facilities").doc(facility.id).update({
+        "availability": false,
+        "bookedBy": user.uid,
+      });
+      print("✅ Facility booked successfully: ${facility.id}");
+    } catch (e) {
+      print("❌ Error booking facility: $e");
+      throw Exception("Failed to book facility. Please try again.");
     }
-    return _firestore
-        .collection('facility_bookings')
-        .where('userId', isEqualTo: user.uid)
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => Facility.fromMap(doc.data(), doc.id))
-            .toList());
   }
 
-  // Cancel a facility booking
-  Future<void> cancelBooking(String bookingId) async {
+  /// ✅ Cancel a facility booking
+  Future<void> cancelBooking(String facilityId) async {
     try {
-      await _firestore.collection('facility_bookings').doc(bookingId).delete();
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) throw Exception("User not logged in");
+
+      await _firestore.collection("facilities").doc(facilityId).update({
+        "availability": true,
+        "bookedBy": FieldValue.delete(), // ✅ Fix: Properly removes `bookedBy`
+      });
+      print("✅ Booking canceled successfully: $facilityId");
     } catch (e) {
-      throw Exception('Failed to cancel booking: $e');
+      print("❌ Error canceling booking: $e");
+      throw Exception("Failed to cancel booking. Please try again.");
     }
   }
 }

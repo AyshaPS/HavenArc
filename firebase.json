@@ -1,1 +1,28 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"havenarc-40873","appId":"1:869108209755:android:20a156cc55faefd5e7877e","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"havenarc-40873","configurations":{"android":"1:869108209755:android:20a156cc55faefd5e7877e","ios":"1:869108209755:ios:d3d17ed50016e5ece7877e","macos":"1:869108209755:ios:d3d17ed50016e5ece7877e","web":"1:869108209755:web:2290a5aa9047afc1e7877e","windows":"1:869108209755:web:636ad0ed3288f1e3e7877e"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "havenarc-40873",
+          "appId": "1:869108209755:android:20a156cc55faefd5e7877e",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "havenarc-40873",
+          "configurations": {
+            "android": "1:869108209755:android:20a156cc55faefd5e7877e",
+            "ios": "1:869108209755:ios:d3d17ed50016e5ece7877e",
+            "macos": "1:869108209755:ios:d3d17ed50016e5ece7877e",
+            "web": "1:869108209755:web:2290a5aa9047afc1e7877e",
+            "windows": "1:869108209755:web:636ad0ed3288f1e3e7877e"
+          }
+        }
+      }
+    }
+  },
+  "emulators": {
+    "singleProjectMode": true
+  }
+}

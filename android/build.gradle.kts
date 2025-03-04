@@ -1,3 +1,8 @@
+// Apply Kotlin Plugin for the entire project
+plugins {
+    kotlin("android")
+}
+
 allprojects {
     repositories {
         google()
@@ -5,6 +10,7 @@ allprojects {
     }
 }
 
+// Define a new build directory
 val newBuildDir: Directory = rootProject.layout.buildDirectory.dir("../../build").get()
 rootProject.layout.buildDirectory.value(newBuildDir)
 
@@ -16,23 +22,20 @@ subprojects {
     project.evaluationDependsOn(":app")
 }
 
+// Clean Task
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }
 
-// Firebase dependencies
+// Firebase & Gradle Dependencies
 buildscript {
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.2.1")
-        classpath("com.google.gms:google-services:4.4.0") // ✅ Added Firebase dependency
+        classpath("com.android.tools.build:gradle:8.1.1") // ✅ Updated Gradle Plugin
+        classpath("com.google.gms:google-services:4.4.0") // ✅ Firebase Dependency
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10") // ✅ Kotlin Gradle Plugin
     }
-}
-
-// Apply Google Services Plugin
-plugins {
-    id("com.google.gms.google-services") // ✅ Applied Firebase Plugin
 }

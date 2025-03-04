@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class VotingScreen extends StatefulWidget {
+  const VotingScreen({super.key});
+
   @override
   _VotingScreenState createState() => _VotingScreenState();
 }

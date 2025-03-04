@@ -4,7 +4,7 @@ import 'package:havenarc/screens/auth/login_screen.dart';
 import 'package:havenarc/screens/dashboard/dashboard_screen.dart'; // Import for navigation to login screen
 
 class SignupScreen extends StatefulWidget {
-  const SignupScreen({Key? key}) : super(key: key);
+  const SignupScreen({super.key});
 
   @override
   _SignupScreenState createState() => _SignupScreenState();

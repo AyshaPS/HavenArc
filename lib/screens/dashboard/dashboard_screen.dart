@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:havenarc/screens/dashboard/profile_screen.dart';
 import 'package:havenarc/screens/dashboard/settings_screen.dart';
+import 'package:havenarc/screens/facilities/facility_booking_screen.dart';
 import '../auth/login_screen.dart';
-import '../events/event_list_screen.dart'; // ✅ Added Event Navigation
+import '../events/event_list_screen.dart';
+import '../visitors/visitors_screen.dart'; // ✅ Import Visitors Screen
+// ✅ Import Facility Booking Screen
 
 class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+  const DashboardScreen({super.key});
 
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
@@ -63,6 +66,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     builder: (context) =>
                         const EventListScreen()), // ✅ Navigate to events
               ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.group),
+              title: const Text("Visitors"),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const VisitorsScreen()),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.book),
+              title: const Text("Facility Booking"),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const FacilityBookingScreen()),
+              ), // ✅ Navigate to Facility Booking
             ),
             ListTile(
               leading: const Icon(Icons.person),

@@ -1,62 +1,107 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:havenarc/models/facility_model.dart';
 
-class FacilityDetailsScreen extends StatelessWidget {
-  final String facilityId;
-  const FacilityDetailsScreen({Key? key, required this.facilityId})
-      : super(key: key);
+class FacilityDetailsScreen extends StatefulWidget {
+  final String apartmentId; // Apartment ID to fetch relevant facilities
 
-  void bookFacility(BuildContext context) async {
+  const FacilityDetailsScreen({super.key, required this.apartmentId});
+
+  @override
+  _FacilityDetailsScreenState createState() => _FacilityDetailsScreenState();
+}
+
+class _FacilityDetailsScreenState extends State<FacilityDetailsScreen> {
+  late Stream<QuerySnapshot> facilityStream;
+
+  @override
+  void initState() {
+    super.initState();
+    facilityStream = FirebaseFirestore.instance
+        .collection("facilities")
+        .where("apartmentId",
+            isEqualTo: widget.apartmentId) // Filter by Apartment
+        .snapshots();
+  }
+
+  /// 🔹 Book a Facility
+  Future<void> bookFacility(FacilityModel facility) async {
     final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
+    if (user == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("⚠️ Please log in to book a facility")),
+      );
+      return;
+    }
+
+    try {
       await FirebaseFirestore.instance
           .collection("facilities")
-          .doc(facilityId)
+          .doc(facility.id)
           .update({
-        "availability": false,
-        "bookedBy": user.uid,
+        "bookedBy": user.uid, // Store user ID
+        "availability": false, // Mark as booked
       });
+
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Facility booked successfully!")),
+        SnackBar(content: Text("✅ ${facility.name} booked successfully!")),
       );
-      Navigator.pop(context);
+    } catch (e) {
+      print("❌ Error booking facility: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("❌ Booking failed. Try again!")),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Facility Details")),
-      body: FutureBuilder<DocumentSnapshot>(
-        future: FirebaseFirestore.instance
-            .collection("facilities")
-            .doc(facilityId)
-            .get(),
+      appBar: AppBar(title: const Text("Facility Details")),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: facilityStream,
         builder: (context, snapshot) {
-          if (!snapshot.hasData)
-            return Center(child: CircularProgressIndicator());
-          var facility = snapshot.data!;
-          return Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(facility["name"],
-                    style:
-                        TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                SizedBox(height: 10),
-                Text(
-                    "Status: ${facility["availability"] ? "Available" : "Booked"}",
-                    style: TextStyle(fontSize: 18)),
-                SizedBox(height: 20),
-                if (facility["availability"])
-                  ElevatedButton(
-                    onPressed: () => bookFacility(context),
-                    child: Text("Book Facility"),
-                  ),
-              ],
-            ),
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (snapshot.hasError) {
+            return const Center(child: Text("❌ Error loading facilities"));
+          }
+
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return const Center(child: Text("📌 No facilities available"));
+          }
+
+          List<FacilityModel> facilities = snapshot.data!.docs.map((doc) {
+            var data = doc.data() as Map<String, dynamic>;
+            return FacilityModel.fromMap(
+                data, doc.id); // ✅ Fixed data conversion
+          }).toList();
+
+          return ListView.builder(
+            itemCount: facilities.length,
+            itemBuilder: (context, index) {
+              var facility = facilities[index];
+
+              return Card(
+                margin: const EdgeInsets.all(10),
+                child: ListTile(
+                  title: Text(facility.name),
+                  subtitle: Text(facility.location),
+                  trailing: facility.bookedBy.isEmpty
+                      ? ElevatedButton(
+                          onPressed: () => bookFacility(facility),
+                          child: const Text("Book Now"),
+                        )
+                      : Text(
+                          "Booked by ${facility.bookedBy}",
+                          style: const TextStyle(color: Colors.red),
+                        ),
+                ),
+              );
+            },
           );
         },
       ),

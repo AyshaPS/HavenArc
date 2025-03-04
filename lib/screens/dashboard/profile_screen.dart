@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../auth/login_screen.dart'; // Navigation to LoginScreen
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({super.key});
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -13,6 +13,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? user;
   final TextEditingController _nameController = TextEditingController();
+  bool _isUpdating = false;
 
   @override
   void initState() {
@@ -22,10 +23,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   // Update the user's profile information
-  void _updateProfile() async {
+  Future<void> _updateProfile() async {
+    if (_nameController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Name cannot be empty!")),
+      );
+      return;
+    }
+
+    setState(() {
+      _isUpdating = true;
+    });
+
     try {
       await user?.updateDisplayName(_nameController.text);
+      await user?.reload(); // Refresh user data
+      user = _auth.currentUser; // Fetch updated user details
+
       setState(() {});
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Profile updated successfully!")),
       );
@@ -33,6 +49,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Error updating profile: ${e.toString()}")),
       );
+    } finally {
+      setState(() {
+        _isUpdating = false;
+      });
     }
   }
 
@@ -76,15 +96,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _updateProfile,
-              child: Text("Update Profile"),
-            ),
+            _isUpdating
+                ? CircularProgressIndicator()
+                : ElevatedButton(
+                    onPressed: _updateProfile,
+                    child: Text("Update Profile"),
+                  ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: _logout,
-              child: Text("Logout"),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              child: Text("Logout"),
             ),
           ],
         ),

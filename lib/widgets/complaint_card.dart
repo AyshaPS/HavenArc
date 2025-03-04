@@ -5,8 +5,8 @@ class ComplaintCard extends StatelessWidget {
   final Complaint complaint;
   final VoidCallback onTap;
 
-  const ComplaintCard({Key? key, required this.complaint, required this.onTap})
-      : super(key: key);
+  const ComplaintCard(
+      {super.key, required this.complaint, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

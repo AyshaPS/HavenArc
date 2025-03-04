@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FeedbackScreen extends StatefulWidget {
-  const FeedbackScreen({Key? key}) : super(key: key);
+  const FeedbackScreen({super.key});
 
   @override
   _FeedbackScreenState createState() => _FeedbackScreenState();
@@ -74,12 +74,12 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             const SizedBox(height: 12),
             ElevatedButton(
               onPressed: _isSubmitting ? null : _submitFeedback,
-              child: _isSubmitting
-                  ? const CircularProgressIndicator(color: Colors.white)
-                  : const Text("Submit"),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.deepPurple,
               ),
+              child: _isSubmitting
+                  ? const CircularProgressIndicator(color: Colors.white)
+                  : const Text("Submit"),
             ),
           ],
         ),

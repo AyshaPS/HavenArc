@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import '../models/facility_model.dart';
 
 class FacilityCard extends StatelessWidget {
-  final Facility facility;
+  final FacilityModel facility;
   final VoidCallback onTap;
 
-  const FacilityCard({Key? key, required this.facility, required this.onTap})
-      : super(key: key);
+  const FacilityCard({super.key, required this.facility, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +22,12 @@ class FacilityCard extends StatelessWidget {
           padding: const EdgeInsets.all(12.0),
           child: Row(
             children: [
-              // Facility Image with Placeholder
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.network(
                   facility.imageUrl.isNotEmpty
                       ? facility.imageUrl
-                      : 'https://via.placeholder.com/80', // Default Image
+                      : 'https://dummyimage.com/80x80/cccccc/ffffff.png&text=No+Image', // Placeholder image
                   width: 80,
                   height: 80,
                   fit: BoxFit.cover,
@@ -45,7 +43,6 @@ class FacilityCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              // Facility Details
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,12 +58,17 @@ class FacilityCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      facility.description.isNotEmpty
+                      facility.description.isNotEmpty == true
                           ? facility.description
                           : 'No description available',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(fontSize: 14, color: Colors.grey),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      "Location: ${facility.location}",
+                      style: const TextStyle(fontSize: 14),
                     ),
                   ],
                 ),

@@ -5,7 +5,7 @@ import 'event_details_screen.dart';
 import 'create_event_screen.dart';
 
 class EventListScreen extends StatelessWidget {
-  const EventListScreen({Key? key}) : super(key: key);
+  const EventListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +61,8 @@ class EventListScreen extends StatelessWidget {
             MaterialPageRoute(builder: (context) => const CreateEventScreen()),
           );
         },
-        child: const Icon(Icons.add),
         tooltip: "Create New Event",
+        child: const Icon(Icons.add),
       ),
     );
   }

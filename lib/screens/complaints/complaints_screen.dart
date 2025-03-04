@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'complaint_details_screen.dart';
 
 class ComplaintsScreen extends StatefulWidget {
-  const ComplaintsScreen({Key? key}) : super(key: key);
+  const ComplaintsScreen({super.key});
 
   @override
   _ComplaintsScreenState createState() => _ComplaintsScreenState();
@@ -76,12 +76,12 @@ class _ComplaintsScreenState extends State<ComplaintsScreen> {
             const SizedBox(height: 12),
             ElevatedButton(
               onPressed: _isSubmitting ? null : _submitComplaint,
-              child: _isSubmitting
-                  ? const CircularProgressIndicator(color: Colors.white)
-                  : const Text("Submit Complaint"),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.deepPurple,
               ),
+              child: _isSubmitting
+                  ? const CircularProgressIndicator(color: Colors.white)
+                  : const Text("Submit Complaint"),
             ),
             const SizedBox(height: 16),
             const Text(

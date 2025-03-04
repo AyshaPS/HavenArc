@@ -7,11 +7,11 @@ class ComplaintDetailsScreen extends StatefulWidget {
   final String status;
 
   const ComplaintDetailsScreen({
-    Key? key,
+    super.key,
     required this.complaintId,
     required this.complaintText,
     required this.status,
-  }) : super(key: key);
+  });
 
   @override
   _ComplaintDetailsScreenState createState() => _ComplaintDetailsScreenState();
@@ -67,18 +67,18 @@ class _ComplaintDetailsScreenState extends State<ComplaintDetailsScreen> {
             if (widget.status != "Resolved") ...[
               ElevatedButton(
                 onPressed: () => _updateComplaintStatus("Resolved"),
-                child: const Text("Mark as Resolved"),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,
                 ),
+                child: const Text("Mark as Resolved"),
               ),
               const SizedBox(height: 8),
               ElevatedButton(
                 onPressed: () => _updateComplaintStatus("In Progress"),
-                child: const Text("Mark as In Progress"),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orange,
                 ),
+                child: const Text("Mark as In Progress"),
               ),
             ],
           ],

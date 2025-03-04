@@ -6,6 +6,8 @@ import 'package:havenarc/screens/facilities/facility_booking_screen.dart';
 import 'package:havenarc/screens/voting/voting_screen.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;

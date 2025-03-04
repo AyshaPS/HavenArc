@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class SentimentAnalysisScreen extends StatefulWidget {
-  const SentimentAnalysisScreen({Key? key}) : super(key: key);
+  const SentimentAnalysisScreen({super.key});
 
   @override
   _SentimentAnalysisScreenState createState() =>

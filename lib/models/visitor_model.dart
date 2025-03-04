@@ -1,40 +1,39 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Visitor {
   final String id;
   final String name;
   final String purpose;
-  final String visitDate;
-  final String imageUrl;
+  final DateTime visitDate; // Ensure Firestore stores it as Timestamp
 
   Visitor({
     required this.id,
     required this.name,
     required this.purpose,
     required this.visitDate,
-    required this.imageUrl,
   });
 
+  // ✅ Convert Firestore document to a Visitor object
   factory Visitor.fromMap(Map<String, dynamic> data, String documentId) {
-    print("📢 Mapping Firestore Data for Visitor ID: $documentId");
-    print("🔥 Data Received: $data");
-
     return Visitor(
       id: documentId,
-      name: data['name'] is String ? data['name'] ?? 'Unknown' : 'Unknown',
-      purpose: data['purpose'] is String
-          ? data['purpose'] ?? 'Not specified'
-          : 'Not specified',
-      visitDate:
-          data['visitDate'] is String ? data['visitDate'] ?? 'N/A' : 'N/A',
-      imageUrl: data['imageUrl'] is String ? data['imageUrl'] ?? '' : '',
+      name: data['name'] ?? 'Unknown', // Default if missing
+      purpose: data['purpose'] ?? 'No purpose given',
+      visitDate: (data['visitDate'] != null) // ✅ Check if `visitDate` exists
+          ? (data['visitDate'] as Timestamp).toDate()
+          : DateTime.now(), // ✅ Use current time if missing
     );
   }
 
+  get imageUrl => null;
+
+  // ✅ Convert Visitor object to Firestore format
   Map<String, dynamic> toMap() {
     return {
       'name': name,
       'purpose': purpose,
-      'visitDate': visitDate,
-      'imageUrl': imageUrl,
+      'visitDate': Timestamp.fromDate(
+          visitDate), // Convert DateTime to Firestore Timestamp
     };
   }
 }

@@ -10,7 +10,7 @@ class FirestoreService {
       await _db.collection(collectionPath).add(data);
     } catch (e) {
       print("Error adding document: $e");
-      throw e;
+      rethrow;
     }
   }
 
@@ -21,7 +21,7 @@ class FirestoreService {
       await _db.collection(collectionPath).doc(docId).update(data);
     } catch (e) {
       print("Error updating document: $e");
-      throw e;
+      rethrow;
     }
   }
 
@@ -31,7 +31,7 @@ class FirestoreService {
       await _db.collection(collectionPath).doc(docId).delete();
     } catch (e) {
       print("Error deleting document: $e");
-      throw e;
+      rethrow;
     }
   }
 

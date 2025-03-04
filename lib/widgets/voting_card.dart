@@ -5,8 +5,7 @@ class VotingCard extends StatelessWidget {
   final Voting voting;
   final VoidCallback onTap;
 
-  const VotingCard({Key? key, required this.voting, required this.onTap})
-      : super(key: key);
+  const VotingCard({super.key, required this.voting, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,7 @@ import 'event_list_screen.dart'; // Navigation to EventListScreen
 
 class EventDetailsScreen extends StatefulWidget {
   final String eventId;
-  const EventDetailsScreen({Key? key, required this.eventId}) : super(key: key);
+  const EventDetailsScreen({super.key, required this.eventId});
 
   @override
   _EventDetailsScreenState createState() => _EventDetailsScreenState();

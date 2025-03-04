@@ -5,8 +5,7 @@ class VisitorCard extends StatelessWidget {
   final Visitor visitor;
   final VoidCallback onTap;
 
-  const VisitorCard({Key? key, required this.visitor, required this.onTap})
-      : super(key: key);
+  const VisitorCard({super.key, required this.visitor, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

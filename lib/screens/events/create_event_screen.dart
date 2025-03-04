@@ -5,7 +5,7 @@ import 'package:intl/intl.dart'; // Import for date formatting
 import 'package:havenarc/screens/events/event_list_screen.dart';
 
 class CreateEventScreen extends StatefulWidget {
-  const CreateEventScreen({Key? key}) : super(key: key);
+  const CreateEventScreen({super.key});
 
   @override
   _CreateEventScreenState createState() => _CreateEventScreenState();
@@ -25,12 +25,10 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
       firstDate: DateTime.now(),
       lastDate: DateTime(2100),
     );
-    if (picked != null) {
-      setState(() {
-        _selectedDate = picked;
-        _dateController.text = DateFormat('yyyy-MM-dd').format(picked);
-      });
-    }
+    setState(() {
+      _selectedDate = picked;
+      _dateController.text = DateFormat('yyyy-MM-dd').format(picked!);
+    });
   }
 
   // Function to create an event
@@ -93,8 +91,10 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                 ElevatedButton(
                   onPressed: Navigator.of(context).pop,
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
-                  child: const Text("Cancel",
-                      style: TextStyle(color: Colors.white)),
+                  child: const Text(
+                    "Cancel",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed:
